@@ -1,0 +1,100 @@
+Population Size	Vaccination Percentage	Virus Name	Mortality Rate	Basic Reproduction Number
+1000				0.1					Sniffles		0.12			0.5
+Step Number	Population Count	New Fatalities
+1			1000				0
+
+
+Step Number	Interactions	New Infections
+1			1000				512
+Step Number	Population Count	New Fatalities
+2			1000				67
+
+
+Step Number	Interactions	New Infections
+2			488				260
+Step Number	Population Count	New Fatalities
+3			1000				31
+
+
+Step Number	Interactions	New Infections
+3			228				113
+Step Number	Population Count	New Fatalities
+4			1000				15
+
+
+Step Number	Interactions	New Infections
+4			115				61
+Step Number	Population Count	New Fatalities
+5			1000				6
+
+
+Step Number	Interactions	New Infections
+5			54				25
+Step Number	Population Count	New Fatalities
+6			1000				3
+
+
+Step Number	Interactions	New Infections
+6			29				15
+Step Number	Population Count	New Fatalities
+7			1000				3
+
+
+Step Number	Interactions	New Infections
+7			14				9
+Step Number	Population Count	New Fatalities
+8			1000				1
+
+
+Step Number	Interactions	New Infections
+8			5				2
+Step Number	Population Count	New Fatalities
+9			1000				0
+
+
+Step Number	Interactions	New Infections
+9			3				1
+Step Number	Population Count	New Fatalities
+10			1000				0
+
+
+Step Number	Interactions	New Infections
+10			2				1
+Step Number	Population Count	New Fatalities
+11			1000				1
+
+
+Step Number	Interactions	New Infections
+11			1				0
+Step Number	Population Count	New Fatalities
+12			1000				0
+
+
+Step Number	Interactions	New Infections
+12			1				0
+Step Number	Population Count	New Fatalities
+13			1000				0
+
+
+Step Number	Interactions	New Infections
+13			1				0
+Step Number	Population Count	New Fatalities
+14			1000				0
+
+
+Step Number	Interactions	New Infections
+14			1				0
+Step Number	Population Count	New Fatalities
+15			1000				0
+
+
+Step Number	Interactions	New Infections
+15			1				1
+Step Number	Population Count	New Fatalities
+16			1000				0
+
+
+Step Number	Interactions	New Infections
+16			0				0
+Time Step Number
+16

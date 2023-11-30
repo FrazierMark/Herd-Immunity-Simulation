@@ -7,7 +7,7 @@ from virus import Virus
 
 class Simulation(object):
     def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
-        # TODO: Create a Logger object and bind it to self.logger.
+       
         self.logger = Logger("log.txt")
         self.virus = virus
         self.pop_size = pop_size
@@ -25,7 +25,8 @@ class Simulation(object):
         self.should_continue = True
         
         self.population = self._create_population(self.pop_size)
-        # self.logger.write_metadata(self.pop_size, self.vacc_percentage, self.virus.name, self.virus.mortality_rate, self.virus.repro_rate)
+        
+        self.logger.write_metadata(self.pop_size, self.vacc_percentage, self.virus.name, self.virus.mortality_rate, self.virus.repro_rate)
         
 
     def _create_population(self, population_size):
@@ -54,11 +55,16 @@ class Simulation(object):
             self.should_continue = self._simulation_should_continue()
         print("TOTAL DEAD: ", self.total_dead)
         print("TOTAL INFECTED: ", self.total_infected)
+        
+        self.logger.log_time_step(self.time_step_counter)
 
 
     def time_step(self):
         print('TIME STEP', self.time_step_counter)
         self._infect_newly_infected()
+        print("LENGTH OF DEAD", len(self.newly_dead))
+        
+        self.logger.log_infection_survival(self.time_step_counter, len(self.population), len(self.newly_dead))
 
         # Ensure that newly_infected and newly_dead lists are reset at the beginning
         self.newly_infected = []
@@ -69,29 +75,31 @@ class Simulation(object):
         for person in self.population:
             if person.is_alive and person.infection is not None:
                 i = 0
-                while i < 10:
-                    # Filter out already selected individuals
+                while i < 100:
+                    # Filter out individuals that are dead, vaccinated, or already selected
                     available_individuals = [p for p in self.population if p.is_alive and not p.is_vaccinated and p not in selected_individuals]
                     
                     if not available_individuals:
-                        break  # Break the loop if there are no more available individuals
+                        break  # Break the loop if we have already interacted with all available individuals
 
                     random_person = random.choice(available_individuals)
-                    print(f"Uninfected Person: {person.id} (Infected Person) -> {random_person.id}")
-                    self.interaction(person, random_person)
+                    self.interaction(person, random_person, selected_individuals,)
                     
                     # Add the selected individual to the set
                     selected_individuals.add(random_person)
 
                     i += 1
+                    
         
+        self.logger.log_interactions(self.time_step_counter, len(selected_individuals), len(self.newly_infected))    
         
 
-    def interaction(self, infected_person, random_person):
+    def interaction(self, infected_person, random_person, selected_individuals,):
         
         if random.random() < self.virus.repro_rate:
-            self.newly_infected.append(random_person)           
-    
+            self.newly_infected.append(random_person)     
+        
+        
 
     def _infect_newly_infected(self):
         
@@ -101,12 +109,14 @@ class Simulation(object):
             
             person.is_alive = person.did_survive_infection()
             
+            
             if person.is_alive:
                 person.is_vaccinated = True
             
-            if not person.is_alive:
+            elif not person.is_alive:
                 self.newly_dead.append(person)
                 self.total_dead += 1
+            
             
             # reintroduce person back into population
             self._update_person_with_id(self.population, person.id, person.__dict__)
@@ -131,7 +141,7 @@ if __name__ == "__main__":
     # virus = Virus(virus_name, repro_num, mortality_rate)
 
     # Set some values used by the simulation
-    pop_size = 50
+    pop_size = 1000
     vacc_percentage = 0.1
     initial_infected = 10
     
