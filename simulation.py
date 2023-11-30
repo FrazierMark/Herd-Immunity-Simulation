@@ -64,7 +64,7 @@ class Simulation(object):
         self._infect_newly_infected()
         print("LENGTH OF DEAD", len(self.newly_dead))
         
-        self.logger.log_infection_survival(self.time_step_counter, len(self.population), len(self.newly_dead))
+        self.logger.log_infection_survival(self.time_step_counter, (len(self.population) - self.total_dead), len(self.newly_dead))
 
         # Ensure that newly_infected and newly_dead lists are reset at the beginning
         self.newly_infected = []
@@ -90,7 +90,6 @@ class Simulation(object):
 
                     i += 1
                     
-        
         self.logger.log_interactions(self.time_step_counter, len(selected_individuals), len(self.newly_infected))    
         
 

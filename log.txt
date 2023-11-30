@@ -1,100 +1,71 @@
 Population Size	Vaccination Percentage	Virus Name	Mortality Rate	Basic Reproduction Number
 1000				0.1					Sniffles		0.12			0.5
+
 Step Number	Population Count	New Fatalities
-1			1000				0
+1			1000					0
 
 
 Step Number	Interactions	New Infections
-1			1000				512
+1			1000				504
 Step Number	Population Count	New Fatalities
-2			1000				67
+2			944					56
 
 
 Step Number	Interactions	New Infections
-2			488				260
+2			496				225
 Step Number	Population Count	New Fatalities
-3			1000				31
+3			911					33
 
 
 Step Number	Interactions	New Infections
-3			228				113
+3			271				146
 Step Number	Population Count	New Fatalities
-4			1000				15
+4			892					19
 
 
 Step Number	Interactions	New Infections
-4			115				61
+4			125				57
 Step Number	Population Count	New Fatalities
-5			1000				6
+5			887					5
 
 
 Step Number	Interactions	New Infections
-5			54				25
+5			68				39
 Step Number	Population Count	New Fatalities
-6			1000				3
+6			885					2
 
 
 Step Number	Interactions	New Infections
-6			29				15
+6			29				16
 Step Number	Population Count	New Fatalities
-7			1000				3
+7			885					0
 
 
 Step Number	Interactions	New Infections
-7			14				9
+7			13				6
 Step Number	Population Count	New Fatalities
-8			1000				1
+8			884					1
 
 
 Step Number	Interactions	New Infections
-8			5				2
+8			7				5
 Step Number	Population Count	New Fatalities
-9			1000				0
+9			883					1
 
 
 Step Number	Interactions	New Infections
-9			3				1
+9			2				1
 Step Number	Population Count	New Fatalities
-10			1000				0
+10			883					0
 
 
 Step Number	Interactions	New Infections
-10			2				1
+10			1				1
 Step Number	Population Count	New Fatalities
-11			1000				1
+11			883					0
 
 
 Step Number	Interactions	New Infections
-11			1				0
-Step Number	Population Count	New Fatalities
-12			1000				0
-
-
-Step Number	Interactions	New Infections
-12			1				0
-Step Number	Population Count	New Fatalities
-13			1000				0
-
-
-Step Number	Interactions	New Infections
-13			1				0
-Step Number	Population Count	New Fatalities
-14			1000				0
-
-
-Step Number	Interactions	New Infections
-14			1				0
-Step Number	Population Count	New Fatalities
-15			1000				0
-
-
-Step Number	Interactions	New Infections
-15			1				1
-Step Number	Population Count	New Fatalities
-16			1000				0
-
-
-Step Number	Interactions	New Infections
-16			0				0
+11			0				0
 Time Step Number
-16
+11
