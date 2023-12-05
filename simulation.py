@@ -1,5 +1,4 @@
-import random, sys
-import copy
+import random, sys, math
 # random.seed(42)
 from person import Person
 from logger import Logger
@@ -8,7 +7,7 @@ from virus import Virus
 class Simulation(object):
     def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
        
-        self.logger = Logger("log.txt")
+        self.logger = Logger("answers.txt")
         self.virus = virus
         self.pop_size = pop_size
         self.vacc_percentage = vacc_percentage
@@ -18,19 +17,18 @@ class Simulation(object):
         self.newly_dead = []
         
         self.total_infected = 0
-        # self.current_infected = 0
         self.total_dead = 0
         
         self.time_step_counter = 0
         self.should_continue = True
         
         self.population = self._create_population(self.pop_size)
-        
         self.logger.write_metadata(self.pop_size, self.vacc_percentage, self.virus.name, self.virus.mortality_rate, self.virus.repro_rate)
         
-
     def _create_population(self, population_size):
         population = []
+        already_vaccinated = math.floor(population_size * self.vacc_percentage)
+        
         for i in range(population_size):
             if i < self.initial_infected:
                 person = Person(i, False, self.virus)
@@ -38,6 +36,16 @@ class Simulation(object):
             else:
                 person = Person(i, False, None)
                 population.append(person)
+        
+        # Vaccinate the population based on the vacc_percentage
+        while already_vaccinated > 0:
+            random_person = random.choice(population)
+            if random_person.infection:
+                continue
+            else:
+                random_person.is_vaccinated = True
+                already_vaccinated -= 1        
+        
         return population
         
 
@@ -53,17 +61,12 @@ class Simulation(object):
             self.time_step_counter += 1
             self.time_step()
             self.should_continue = self._simulation_should_continue()
-        print("TOTAL DEAD: ", self.total_dead)
-        print("TOTAL INFECTED: ", self.total_infected)
         
         self.logger.log_time_step(self.time_step_counter)
-
+        self.logger.log_final_stats(self.total_dead, self.total_infected, self.pop_size)
 
     def time_step(self):
-        print('TIME STEP', self.time_step_counter)
         self._infect_newly_infected()
-        print("LENGTH OF DEAD", len(self.newly_dead))
-        
         self.logger.log_infection_survival(self.time_step_counter, (len(self.population) - self.total_dead), len(self.newly_dead))
 
         # Ensure that newly_infected and newly_dead lists are reset at the beginning
@@ -90,24 +93,20 @@ class Simulation(object):
 
                     i += 1
                     
-        self.logger.log_interactions(self.time_step_counter, len(selected_individuals), len(self.newly_infected))    
-        
+        self.logger.log_interactions(self.time_step_counter, len(selected_individuals), len(self.newly_infected))        
 
     def interaction(self, infected_person, random_person, selected_individuals,):
-        
         if random.random() < self.virus.repro_rate:
             self.newly_infected.append(random_person)     
-        
-        
+
 
     def _infect_newly_infected(self):
-        
+        """Infect each person from the infected list and update their attributes"""
         for person in self.newly_infected:
             person.infection = self.virus
             self.total_infected += 1
             
             person.is_alive = person.did_survive_infection()
-            
             
             if person.is_alive:
                 person.is_vaccinated = True
@@ -116,11 +115,9 @@ class Simulation(object):
                 self.newly_dead.append(person)
                 self.total_dead += 1
             
-            
             # reintroduce person back into population
             self._update_person_with_id(self.population, person.id, person.__dict__)
         
-  
     
     def _update_person_with_id(self, population, target_id, new_attributes):
         "Introduce infected person back into the population"

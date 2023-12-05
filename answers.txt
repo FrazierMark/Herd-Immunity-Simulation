@@ -4,68 +4,64 @@ Population Size	Vaccination Percentage	Virus Name	Mortality Rate	Basic Reproduct
 Step Number	Population Count	New Fatalities
 1			1000					0
 
+Step Number	Interactions	New Infections
+1			906				456
+Step Number	Population Count	New Fatalities
+2			956					44
 
 Step Number	Interactions	New Infections
-1			1000				504
+2			450				230
 Step Number	Population Count	New Fatalities
-2			944					56
-
+3			927					29
 
 Step Number	Interactions	New Infections
-2			496				225
+3			220				104
 Step Number	Population Count	New Fatalities
-3			911					33
-
+4			910					17
 
 Step Number	Interactions	New Infections
-3			271				146
+4			116				56
 Step Number	Population Count	New Fatalities
-4			892					19
-
+5			908					2
 
 Step Number	Interactions	New Infections
-4			125				57
+5			60				35
 Step Number	Population Count	New Fatalities
-5			887					5
-
+6			904					4
 
 Step Number	Interactions	New Infections
-5			68				39
+6			25				17
 Step Number	Population Count	New Fatalities
-6			885					2
-
+7			902					2
 
 Step Number	Interactions	New Infections
-6			29				16
+7			8				6
 Step Number	Population Count	New Fatalities
-7			885					0
-
+8			902					0
 
 Step Number	Interactions	New Infections
-7			13				6
+8			2				1
 Step Number	Population Count	New Fatalities
-8			884					1
-
+9			902					0
 
 Step Number	Interactions	New Infections
-8			7				5
+9			1				0
 Step Number	Population Count	New Fatalities
-9			883					1
-
-
-Step Number	Interactions	New Infections
-9			2				1
-Step Number	Population Count	New Fatalities
-10			883					0
-
+10			902					0
 
 Step Number	Interactions	New Infections
 10			1				1
 Step Number	Population Count	New Fatalities
-11			883					0
-
+11			902					0
 
 Step Number	Interactions	New Infections
 11			0				0
+
 Time Step Number
 11
+
+
+
+Final Summary
+ 	 Total Deaths 	 Total Infections 	 Total Death Percent
+		98				906					10.2% 

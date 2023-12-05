@@ -14,7 +14,7 @@ class Logger(object):
         # Open the file in 'a' mode to append interaction logs
         with open(self.file_name, 'a') as file:
             # Log header
-            file.write(f"\nStep Number\tInteractions\tNew Infections\n")
+            file.write(f"Step Number\tInteractions\tNew Infections\n")
             
             # Log interaction details
             file.write(f"{step_number}\t\t\t{number_of_interactions}\t\t\t\t{number_of_new_infections}\n")
@@ -32,7 +32,16 @@ class Logger(object):
         # Open the file in 'a' mode to append time step logs
         with open(self.file_name, 'a') as file:
             # Log header line
-            file.write(f"Time Step Number\n")
+            file.write(f"\nTime Step Number\n")
             
             # Log time step details
             file.write(f"{time_step_number}\n")
+            
+    def log_final_stats(self, total_dead, total_infected, population_count):
+        # Open the file in 'a' mode to append final stats logs
+        with open(self.file_name, 'a') as file:
+            # Log header line
+            file.write(f"\n\n\nFinal Summary\n \t Total Deaths \t Total Infections \t Total Death Percent\n")
+            
+            # Log final stats details
+            file.write(f"\t\t{total_dead}\t\t\t\t{total_infected}\t\t\t\t\t{round((population_count / total_dead), 2)}% \n")
