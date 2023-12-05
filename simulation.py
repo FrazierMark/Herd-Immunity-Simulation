@@ -18,6 +18,10 @@ class Simulation(object):
         
         self.total_infected = 0
         self.total_dead = 0
+        self.vaccine_saves = 0
+        
+        self.total_vaccinated = 0
+        self.current_infected = 0
         
         self.time_step_counter = 0
         self.should_continue = True
@@ -45,7 +49,6 @@ class Simulation(object):
             else:
                 random_person.is_vaccinated = True
                 already_vaccinated -= 1        
-        
         return population
         
 
@@ -58,75 +61,63 @@ class Simulation(object):
 
     def run(self):
         while self.should_continue:
-            self.time_step_counter += 1
             self.time_step()
             self.should_continue = self._simulation_should_continue()
+            self.time_step_counter += 1
         
         self.logger.log_time_step(self.time_step_counter)
         self.logger.log_final_stats(self.total_dead, self.total_infected, self.pop_size)
 
     def time_step(self):
-        self._infect_newly_infected()
         self.logger.log_infection_survival(self.time_step_counter, (len(self.population) - self.total_dead), len(self.newly_dead))
 
-        # Ensure that newly_infected and newly_dead lists are reset at the beginning
-        self.newly_infected = []
-        self.newly_dead = []
-
-        selected_individuals = set()
-
         for person in self.population:
-            if person.is_alive and person.infection is not None:
-                i = 0
-                while i < 100:
-                    # Filter out individuals that are dead, vaccinated, or already selected
-                    available_individuals = [p for p in self.population if p.is_alive and not p.is_vaccinated and p not in selected_individuals]
+            if person.infection and person.is_alive:
+                for i in range(100):
+                    random_person = self.get_random_person()
+                    self.interaction(person, random_person)
                     
-                    if not available_individuals:
-                        break  # Break the loop if we have already interacted with all available individuals
+                if person.did_survive_infection() == True:
+                    self.current_infected -= 1
+                    person.is_vaccinated = True
+                    self.total_vaccinated += 1
 
-                    random_person = random.choice(available_individuals)
-                    self.interaction(person, random_person, selected_individuals,)
+                else:
+                    person.is_alive = False
+                    self.total_dead += 1
+                    self.current_infected -= 1
                     
-                    # Add the selected individual to the set
-                    selected_individuals.add(random_person)
 
-                    i += 1
-                    
-        self.logger.log_interactions(self.time_step_counter, len(selected_individuals), len(self.newly_infected))        
+        self._infect_newly_infected()  
+        
 
-    def interaction(self, infected_person, random_person, selected_individuals,):
-        if random.random() < self.virus.repro_rate:
-            self.newly_infected.append(random_person)     
+    def interaction(self, infected_person, random_person):
+        if random_person.is_vaccinated:
+            self.vaccine_saves = +1
+        elif not random_person.is_vaccinated and random_person.infection is None and random_person.is_alive:
+            if random.random() < self.virus.repro_rate:
+                self.newly_infected.append(random_person)
+                self.population.remove(random_person)
 
+
+    def get_random_person(self):
+        random_person = random.choice(self.population)
+        while random_person is None and random_person.is_alive is False and not random_person.is_vaccinated:
+            random_person = random.choice(self.population)
+        return random_person
 
     def _infect_newly_infected(self):
         """Infect each person from the infected list and update their attributes"""
         for person in self.newly_infected:
             person.infection = self.virus
             self.total_infected += 1
+            self.current_infected += 1
+            self.population.append(person)
             
-            person.is_alive = person.did_survive_infection()
+        self.newly_infected = []
             
-            if person.is_alive:
-                person.is_vaccinated = True
             
-            elif not person.is_alive:
-                self.newly_dead.append(person)
-                self.total_dead += 1
-            
-            # reintroduce person back into population
-            self._update_person_with_id(self.population, person.id, person.__dict__)
-        
-    
-    def _update_person_with_id(self, population, target_id, new_attributes):
-        "Introduce infected person back into the population"
-        for i, person in enumerate(population):
-            if person.id == target_id:
-                # Update specific attributes of the person with the target ID
-                for key, value in new_attributes.items():
-                    setattr(person, key, value)
-                break  # Break the loop once the person is found and updated
+
 
 
 if __name__ == "__main__":

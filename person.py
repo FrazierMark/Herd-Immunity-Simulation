@@ -2,18 +2,16 @@ import random
 # random.seed(42)
 from virus import Virus
 
-
 class Person(object):
     # Define a person. 
     def __init__(self, id, is_vaccinated, infection = None):
         # A person has an id, is_vaccinated and possibly an infection
         
-        self.id = id  # int
+        self.id = id
         self.is_vaccinated = is_vaccinated
         self.infection = infection # default to None
         self.is_alive = True # default to True
         
-
     def did_survive_infection(self):
         # This method checks if a person survived an infection. 
         # TODO Only called if infection attribute is not None.
@@ -49,3 +47,49 @@ if __name__ == "__main__":
     assert infected_person.is_alive is True
     assert infected_person.is_vaccinated is False
     assert infected_person.infection is virus
+
+    # You need to check the survival of an infected person. Since the chance
+    # of survival is random you need to check a group of people. 
+    # Create a list to hold 100 people. Use the loop below to make 100 people
+    people = []
+    for i in range(1, 100):
+        person = Person(i, False, virus)
+        people.append(person)
+            
+
+    # Count the people that survived and did not survive
+    did_survive = 0
+    did_not_survive = 0
+    
+    for person in people:
+        if person.did_survive_infection():
+            did_survive += 1
+        else:
+            did_not_survive += 1
+            
+    print("DID SURVIVE", did_survive)
+    print("DID NOT SURVIVE", did_not_survive)
+    print("Mortality Rate of Sample Group", round(did_survive / (did_survive + did_not_survive), 3))
+
+    # Stretch challenge! 
+    # Check the infection rate of the virus...
+    uninfected_group = []
+    
+    infected_people_count = 0
+    uninfected_people_count = 0
+    
+    for i in range(1, 100):
+        person = Person(i, False)
+        uninfected_group.append(person)
+    
+    for person in uninfected_group:
+        random_number = random.random()
+        if random_number < virus.repro_rate:
+            person.infection = virus
+            infected_people_count += 1
+        else:
+            uninfected_people_count += 1
+    
+    print("INFECTED PEOPLE COUNT", infected_people_count)
+    print("UNINFECTED PEOPLE COUNT", uninfected_people_count)
+    print("Infection Rate of Virus", round(infected_people_count / (infected_people_count + uninfected_people_count), 3))

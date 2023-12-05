@@ -1,67 +1,29 @@
-Population Size	Vaccination Percentage	Virus Name	Mortality Rate	Basic Reproduction Number
-1000				0.1					Sniffles		0.12			0.5
+
+            Population Size: 1000
+            Vaccination Percentage: 0.1
+            Virus Name: Sniffles
+            Mortality Rate: 0.12
+            Basic Reproduction Number: 0.5
+                       
 
 Step Number	Population Count	New Fatalities
-1			1000					0
+0			1000					0
 
-Step Number	Interactions	New Infections
-1			906				456
 Step Number	Population Count	New Fatalities
-2			956					44
+1			999					0
 
-Step Number	Interactions	New Infections
-2			450				230
 Step Number	Population Count	New Fatalities
-3			927					29
+2			986					0
 
-Step Number	Interactions	New Infections
-3			220				104
 Step Number	Population Count	New Fatalities
-4			910					17
+3			874					0
 
-Step Number	Interactions	New Infections
-4			116				56
-Step Number	Population Count	New Fatalities
-5			908					2
-
-Step Number	Interactions	New Infections
-5			60				35
-Step Number	Population Count	New Fatalities
-6			904					4
-
-Step Number	Interactions	New Infections
-6			25				17
-Step Number	Population Count	New Fatalities
-7			902					2
-
-Step Number	Interactions	New Infections
-7			8				6
-Step Number	Population Count	New Fatalities
-8			902					0
-
-Step Number	Interactions	New Infections
-8			2				1
-Step Number	Population Count	New Fatalities
-9			902					0
-
-Step Number	Interactions	New Infections
-9			1				0
-Step Number	Population Count	New Fatalities
-10			902					0
-
-Step Number	Interactions	New Infections
-10			1				1
-Step Number	Population Count	New Fatalities
-11			902					0
-
-Step Number	Interactions	New Infections
-11			0				0
 
 Time Step Number
-11
+4
 
 
 
 Final Summary
  	 Total Deaths 	 Total Infections 	 Total Death Percent
-		98				906					10.2% 
+		236				894					4.24% 
