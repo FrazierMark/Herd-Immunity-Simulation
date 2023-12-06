@@ -1,0 +1,45 @@
+
+            Population Size: 1000
+            Vaccination Percentage: 0.12
+            Virus Name: Sniffles
+            Mortality Rate: 0.12
+            Basic Reproduction Number: 0.5
+            ---------------------------------------------
+
+
+                Step Number: 1
+                Interactions: 1000
+                Current Infections: 423
+                Current Deaths: 2
+                       
+                Step Number: 2
+                Interactions: 17500
+                Current Infections: 705
+                Current Deaths: 23
+                       
+                Step Number: 3
+                Interactions: 104200
+                Current Infections: -162
+                Current Deaths: 131
+                       
+                       Final Summary
+                       
+                    Inputs:
+                       Population Size: 1000
+                       Initial Vaccinated percentage: 12%
+                       Name of the virus: Sniffles
+                       Mortality rate: 0.12
+                       Reproductive rate of virus: 0.5
+                       
+                       
+                       Percent of population died from virus: 8%
+                       Percent of population infected before burnout: 0%
+                       Number of people saved by vaccine: 53555
+                       
+                       
+                       Total steps: 3
+                       Total interactions: 104200
+                       Total vaccinated: 911
+                       Total Deaths: 131
+                       Total Infections: 890
+                       

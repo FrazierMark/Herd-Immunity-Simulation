@@ -7,7 +7,7 @@ from virus import Virus
 class Simulation(object):
     def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
        
-        self.logger = Logger("answers.txt")
+        self.logger = Logger("results.txt")
         self.virus = virus
         self.pop_size = pop_size
         self.vacc_percentage = vacc_percentage
@@ -22,6 +22,7 @@ class Simulation(object):
         
         self.total_vaccinated = 0
         self.current_infected = 0
+        self.total_interactions = 0
         
         self.time_step_counter = 0
         self.should_continue = True
@@ -32,6 +33,8 @@ class Simulation(object):
     def _create_population(self, population_size):
         population = []
         already_vaccinated = math.floor(population_size * self.vacc_percentage)
+        print(already_vaccinated)
+        self.total_infected = self.initial_infected
         
         for i in range(population_size):
             if i < self.initial_infected:
@@ -64,12 +67,15 @@ class Simulation(object):
             self.time_step()
             self.should_continue = self._simulation_should_continue()
             self.time_step_counter += 1
+            
+            self.logger.log_interactions(self.time_step_counter, self.total_dead, self.total_interactions, self.current_infected)
         
-        self.logger.log_time_step(self.time_step_counter)
-        self.logger.log_final_stats(self.total_dead, self.total_infected, self.pop_size)
+            if not self.should_continue:
+                self.logger.log_final_stats(self.time_step_counter, self.total_interactions, self.total_dead, self.total_vaccinated, self.current_infected, self.virus, self.pop_size, self.initial_infected, self.vacc_percentage, self.vaccine_saves, self.total_dead, self.total_infected)
+        
+        print("TIME STEPS: ", self.time_step_counter)
 
     def time_step(self):
-        self.logger.log_infection_survival(self.time_step_counter, (len(self.population) - self.total_dead), len(self.newly_dead))
 
         for person in self.population:
             if person.infection and person.is_alive:
@@ -77,7 +83,7 @@ class Simulation(object):
                     random_person = self.get_random_person()
                     self.interaction(person, random_person)
                     
-                if person.did_survive_infection() == True:
+                if person.did_survive_infection():
                     self.current_infected -= 1
                     person.is_vaccinated = True
                     self.total_vaccinated += 1
@@ -87,14 +93,13 @@ class Simulation(object):
                     self.total_dead += 1
                     self.current_infected -= 1
                     
-
-        self._infect_newly_infected()  
+        self._infect_newly_infected()
         
-
     def interaction(self, infected_person, random_person):
+        self.total_interactions += 1
         if random_person.is_vaccinated:
-            self.vaccine_saves = +1
-        elif not random_person.is_vaccinated and random_person.infection is None and random_person.is_alive:
+            self.vaccine_saves += 1
+        elif random_person.infection is None and random_person.is_alive:
             if random.random() < self.virus.repro_rate:
                 self.newly_infected.append(random_person)
                 self.population.remove(random_person)
@@ -129,7 +134,7 @@ if __name__ == "__main__":
 
     # Set some values used by the simulation
     pop_size = 1000
-    vacc_percentage = 0.1
+    vacc_percentage = 0.12
     initial_infected = 10
     
 

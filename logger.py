@@ -16,18 +16,19 @@ class Logger(object):
             ---------------------------------------------\n\n""")
             file.close()
 
-    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
+    def log_interactions(self, step_number, total_dead, number_of_interactions, total_infections):
         # Open the file in 'a' mode to append interaction logs
         with open(self.file_name, 'a') as file:
             # Log header
             file.write(f"""
                 Step Number: {step_number}
                 Interactions: {number_of_interactions}
-                New Infections: {number_of_new_infections}
+                Current Infections: {total_infections}
+                Current Deaths: {total_dead}
                        """)
             file.close()
             
-    def log_final_stats(self, step_number, number_of_interactions, dead_people, total_vaccinated, total_infections, virus, pop_size, initial_infected, vacc_percentage, vaccine_saves):
+    def log_final_stats(self, step_number, number_of_interactions, dead_people, total_vaccinated, total_infections, virus, pop_size, initial_infected, vacc_percentage, vaccine_saves, total_dead, total_infected):
         # Open the file in 'a' mode to append final stats logs
         with open(self.file_name, 'a') as file:
             # Log header line
@@ -42,13 +43,16 @@ class Logger(object):
                        Mortality rate: {virus.mortality_rate}
                        Reproductive rate of virus: {virus.repro_rate}
                        
-                       Percent of population died from virus: {round(pop_size / dead_people)}%
                        
-                       Total initial infected: {initial_infected}
+                       Percent of population died from virus: {round(pop_size / dead_people)}%
+                       Percent of population infected before burnout: {round(total_infections / pop_size)}%
+                       Number of people saved by vaccine: {vaccine_saves}
+                       
+                       
+                       Total steps: {step_number}
+                       Total interactions: {number_of_interactions}
+                       Total vaccinated: {total_vaccinated}
                        Total Deaths: {total_dead}
                        Total Infections: {total_infected}
-                       Total Death Percent:
                        """)
-            
-            # Log final stats details
-            file.write(f"\t\t{total_dead}\t\t\t\t{total_infected}\t\t\t\t\t{round((population_count / total_dead), 2)}% \n")
+            file.close()
