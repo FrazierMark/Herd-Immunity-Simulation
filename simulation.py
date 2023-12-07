@@ -81,7 +81,7 @@ class Simulation(object):
             if person.infection and person.is_alive:
                 for i in range(100):
                     random_person = self.get_random_person()
-                    self.interaction(person, random_person)
+                    self.interaction(random_person)
                     
                 if person.did_survive_infection():
                     self.current_infected -= 1
@@ -95,7 +95,7 @@ class Simulation(object):
                     
         self._infect_newly_infected()
         
-    def interaction(self, infected_person, random_person):
+    def interaction(self, random_person):
         self.total_interactions += 1
         if random_person.is_vaccinated:
             self.vaccine_saves += 1
@@ -122,8 +122,6 @@ class Simulation(object):
         self.newly_infected = []
             
             
-
-
 
 if __name__ == "__main__":
     # Test your simulation here

@@ -9,18 +9,18 @@
 
                 Step Number: 1
                 Interactions: 1000
-                Current Infections: 423
-                Current Deaths: 2
+                Current Infections: 391
+                Current Deaths: 0
                        
                 Step Number: 2
-                Interactions: 17500
-                Current Infections: 705
-                Current Deaths: 23
+                Interactions: 14400
+                Current Infections: 735
+                Current Deaths: 13
                        
                 Step Number: 3
-                Interactions: 104200
-                Current Infections: -162
-                Current Deaths: 131
+                Interactions: 102000
+                Current Infections: -141
+                Current Deaths: 120
                        
                        Final Summary
                        
@@ -34,12 +34,12 @@
                        
                        Percent of population died from virus: 8%
                        Percent of population infected before burnout: 0%
-                       Number of people saved by vaccine: 53555
+                       Number of people saved by vaccine: 51626
                        
                        
                        Total steps: 3
-                       Total interactions: 104200
-                       Total vaccinated: 911
-                       Total Deaths: 131
-                       Total Infections: 890
+                       Total interactions: 102000
+                       Total vaccinated: 900
+                       Total Deaths: 120
+                       Total Infections: 889
                        
